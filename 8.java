@@ -1,36 +1,33 @@
-public class 4{
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+class Solution {
+    public int myAtoi(String s) {
+        int i = 0, n = s.length();
+        int sign = 1;
+        long result = 0;
 
-        int m = nums1.length;
-        int n = nums2.length;
-
-        int[] arr = new int[m + n];
-
-        // copy nums1
-        for (int i = 0; i < m; i++) {
-            arr[i] = nums1[i];
+        // 1. Ignore leading whitespaces
+        while (i < n && s.charAt(i) == ' ') {
+            i++;
         }
 
-        // copy nums2
-        for (int i = 0; i < n; i++) {
-            arr[m + i] = nums2[i];
+        // 2. Check sign
+        if (i < n && (s.charAt(i) == '+' || s.charAt(i) == '-')) {
+            sign = (s.charAt(i) == '-') ? -1 : 1;
+            i++;
         }
 
-        // sort merged array
-        Arrays.sort(arr);
+        // 3. Convert digits
+        while (i < n && Character.isDigit(s.charAt(i))) {
+            result = result * 10 + (s.charAt(i) - '0');
 
-        int len = arr.length;
+            // 4. Handle overflow
+            if (sign * result > Integer.MAX_VALUE)
+                return Integer.MAX_VALUE;
+            if (sign * result < Integer.MIN_VALUE)
+                return Integer.MIN_VALUE;
 
-        // if odd length
-        if (len % 2 != 0) {
-            return arr[len / 2];
+            i++;
         }
-        // if even length
-        else {
-            return (arr[len / 2 - 1] + arr[len / 2]) / 2.0;
-        }
+
+        return (int) (sign * result);
     }
-}
- 4 {
-    
 }
